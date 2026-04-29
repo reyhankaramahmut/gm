@@ -79,6 +79,7 @@ double Quaternion::dot(const Quaternion& q) const
     return Re * q.Re + (Im * q.Im);
 }
 
+// Negation
 Quaternion Quaternion::operator - () const
 {
     return Quaternion(-Re, -Im);
@@ -87,7 +88,7 @@ Quaternion Quaternion::operator - () const
 Quaternion Quaternion::lerp(const Quaternion& q, double t) const
 {
     Quaternion qE = q;
-    if (dot(q) < 0.0) qE = -q;
+    if (dot(q) < 0.0) qE = -q; // kürzester Weg
     return (*this) * (1.0 - t) + qE * t;
 }
 
@@ -102,27 +103,17 @@ Quaternion Quaternion::slerp(const Quaternion& q, double t) const
 {
     double cosOmega = dot(q);
     Quaternion qE = q;
-    if (cosOmega < 0.0) {
+    if (cosOmega < 0.0) { // kürzester Weg
         qE       = -q;
         cosOmega = -cosOmega;
     }
 
-    double omega    = acos(cosOmega);
+    double omega    = acos(cosOmega); // winkel zwischen q1 und q2
     double sinOmega = sin(omega);
     if (sinOmega) {
         double w0 = sin((1.0 - t) * omega) / sinOmega;
         double w1 = sin(       t  * omega) / sinOmega;
         return (*this) * w0 + qE * w1;
     }
-    return nlerp(qE, t);
+    return nlerp(qE, t); // fallback bei sinOmega = 0
 }
-
-/**
-double Quaternion::getAngle() const
-{
-    double r = Re / getNorm();
-    if (r >  1.0) r =  1.0;
-    if (r < -1.0) r = -1.0;
-    return 2.0 * acos(r);
-}
-**/

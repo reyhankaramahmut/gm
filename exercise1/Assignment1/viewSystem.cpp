@@ -261,7 +261,7 @@ void viewSystem::Rotate(const AffineMap& mat)
 void viewSystem::Rotate(const Quaternion& q)	// rotate by quaternion quat
 {
     Vector ori = ViewOri - Point(0, 0, 0); // Ortsvektor
-    ViewOri    = Point(0, 0, 0) + q.rotate(ori);
+    ViewOri    = Point(0, 0, 0) + q.rotate(ori); // zurück zum Punkt
     ViewDir    = q.rotate(ViewDir);
     ViewUp     = q.rotate(ViewUp );
 
@@ -310,9 +310,9 @@ Point viewSystem::Project(Point pnt) const
 // view-to-world/world-to-view transformations
 AffineMap viewSystem::getViewToWorld() const
 {
-    // AUFGABE01
     Vector ViewHor = ViewDir ^ViewUp;
     ViewHor.normalize();
+
     AffineMap M;
 
     M.setCol(ViewHor,  0);
