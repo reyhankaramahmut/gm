@@ -37,6 +37,4 @@ public:
     Quaternion lerp (const Quaternion& q, double t) const;
     Quaternion nlerp(const Quaternion& q, double t) const;
     Quaternion slerp(const Quaternion& q, double t) const;
-
-    // double getAngle() const;
 };

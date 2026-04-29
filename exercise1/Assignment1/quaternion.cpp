@@ -4,6 +4,11 @@
 //
 ////////////////////////////////////////////////////////////////////
 
+/*
+ * Author: Reyhan Karamahmut
+ * Date: 2026-04-29
+ */
+
 #include "quaternion.h"
 #include <cmath>
 
@@ -79,7 +84,6 @@ double Quaternion::dot(const Quaternion& q) const
     return Re * q.Re + (Im * q.Im);
 }
 
-// Negation
 Quaternion Quaternion::operator - () const
 {
     return Quaternion(-Re, -Im);
