@@ -72,22 +72,6 @@ void applyQuaternion(const Quaternion& q)
                  299);
 }
 
-/**
-void applyQuaternion(const Quaternion& q)
-{
-    static Quaternion lastQ;
-    Quaternion delta = lastQ.conjugate() * q;
-    cout << "t=" << interpT << "  delta_angle=" << delta.getAngle() * 180.0 / M_PI;
-    lastQ = q;
-
-    Vector initDir(0, 0, -1);
-    Vector initUp (0, 1,  0);
-    view.setData(Point(0, 0, 0, 1),
-                 q.rotate(initDir),
-                 q.rotate(initUp),
-                 299);
-}
-**/
 void stepInterp(double step)
 {
     interpT += step;
